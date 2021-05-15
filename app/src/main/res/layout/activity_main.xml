@@ -6,65 +6,143 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/button_start"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="Hotspot starten"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <ScrollView
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:visibility="gone"
-            tools:visibility="visible"
-            android:id="@+id/linearlayout_arduino_controller"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center">
-
-            <TextView
-                android:id="@+id/textview_status"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Status: Starte Hotspot..."
-                android:padding="10dp"
-                android:textSize="20sp"/>
-
-            <TextView
-                android:id="@+id/textview_ssid"
-                android:padding="10dp"
-                android:textSize="18sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="SSID: (Wird generiert...)"/>
-
-            <TextView
-                android:id="@+id/textview_passwort"
-                android:padding="10dp"
-                android:textSize="18sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Passwort: (Wird generiert...)"/>
+            android:orientation="vertical">
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:id="@+id/linearlayout_console"/>
+                android:orientation="vertical"
+                android:paddingHorizontal="50dp"
+                android:paddingVertical="10dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Bitte stelle sicher, dass du mit dem Arduino WiFi Netzwerk verbunden bist."
+                    android:gravity="center"
+                    android:fontFamily="sans-serif-black"
+                    android:layout_marginBottom="20dp"
+                    android:textColor="@color/blueAccent"/>
+
+                <EditText
+                    android:id="@+id/edittext_ip"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="IP Adresse" />
+
+                <Button
+                    android:id="@+id/button_verbinden"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:text="Verbinden" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                tools:visibility="visible"
+                android:visibility="gone"
+                android:id="@+id/linearlayout_control"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Steuerung"
+                    android:textSize="20sp"
+                    android:gravity="center"
+                    android:fontFamily="sans-serif-black"
+                    android:layout_marginBottom="5dp"
+                    android:textColor="@color/blueAccent"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:textSize="18sp"
+                        android:textColor="@color/blueAccent"
+                        android:text="LED"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="40dp">
+
+                        <Button
+                            android:id="@+id/button_led_an"
+                            android:layout_weight="1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dp"
+                            android:text="An"/>
+
+                        <Button
+                            android:id="@+id/button_led_aus"
+                            android:layout_weight="1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:text="Aus"/>
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Logs"
+                    android:gravity="center"
+                    android:fontFamily="sans-serif-black"
+                    android:layout_marginBottom="20dp"
+                    android:textColor="@color/blueAccent"/>
+
+                <LinearLayout
+                    android:id="@+id/linearlayout_logs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="20dp"
+                    android:padding="20dp"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+
+            </LinearLayout>
 
         </LinearLayout>
+
 
     </ScrollView>
 
