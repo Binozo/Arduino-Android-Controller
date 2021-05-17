@@ -1,5 +1,7 @@
 package com.binozoworks.arduinoandroidcontroller;
 
+import android.util.Log;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -7,6 +9,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 
 public class NetworkingHelper {
 
@@ -27,7 +30,7 @@ public class NetworkingHelper {
             @Override
             public void run() {
                 try {
-                    server = new Socket(arduinoIP, 8140 );
+                    server = new Socket(arduinoIP, 80 );
                 } catch (IOException e) {
                     e.printStackTrace();
 
@@ -45,12 +48,22 @@ public class NetworkingHelper {
                 }
 
                 try {
+
+                    String inputString = "Client bestaetigt.";
+                    byte[] byteArrray = inputString.getBytes();
+                    out.write(byteArrray);
                     //Ware auf bestätigungsnachricht
-                    String message = in.readUTF();
-                    events.OnServerMessage(message);
+                    //String message = in.readChar();
+                    System.out.println("Warte auf Client Nachricht...");
+                    System.out.println(in.readByte());
+                    System.out.println("Client Nachricht gelesen!");
+                    events.OnConnect();
+                    /*events.OnServerMessage(message);
+                    System.out.println("Hier");
+                    System.out.println("Servernachricht: " + message);
                     if(message.equals("ok")){
                         events.OnConnect();
-                    }
+                    }*/
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -68,7 +81,11 @@ public class NetworkingHelper {
             @Override
             public void run() {
                 try{
-                    out.writeUTF(command);
+                    byte[] byteArrray = command.getBytes();
+                    out.write(byteArrray);
+                    System.out.println("Warte auf Client Nachricht...");
+                    System.out.println(in.readByte());
+                    System.out.println("Client Nachricht gelesen!");
                 }catch (IOException e){
                     e.printStackTrace();
                 }
