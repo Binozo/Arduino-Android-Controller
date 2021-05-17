@@ -6,6 +6,7 @@ import androidx.core.app.ActivityCompat;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.icu.text.SimpleDateFormat;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
@@ -71,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void verbinde_mit_arduino(){
+        System.out.println("Hier");
         if(editText_ip.getText().toString().isEmpty()){
             editText_ip.setError("Trage bitte eine IP ein");
             return;
@@ -118,9 +120,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void writeLog(String message){
+        System.out.println(message);
         String time = formatter.format(new Date(System.currentTimeMillis()));
         TextView textView = new TextView(this);
         textView.setText("[" + time + "] " + message);
+        textView.setTextColor(Color.BLUE);
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
