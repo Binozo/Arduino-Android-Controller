@@ -15,10 +15,12 @@ import android.os.Handler;
 import android.text.format.Formatter;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import java.io.DataInputStream;
@@ -44,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout linearLayout_logs, linearLayout_control;
     private Button button_verbinden, button_led_an, button_led_aus;
     private EditText editText_ip;
+    private SeekBar seekBar_r, seekBar_g, seekBar_b;
 
     //WriteLog
     SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
@@ -52,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); //Bildschirm anlassen
         init_views();
         register_button_commands();
     }
@@ -66,7 +70,9 @@ public class MainActivity extends AppCompatActivity {
         button_led_an.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                networkingHelper.send_command("led an");
+                //networkingHelper.send_command("led an");
+                networkingHelper.send_command("LED 2");
+                //networkingHelper.send_command("hiii");
             }
         });
     }
@@ -147,5 +153,58 @@ public class MainActivity extends AppCompatActivity {
         });
         button_led_an = findViewById(R.id.button_led_an);
         button_led_aus = findViewById(R.id.button_led_aus);
+        seekBar_r = findViewById(R.id.seekbar_r);
+        seekBar_b = findViewById(R.id.seekbar_b);
+        seekBar_g = findViewById(R.id.seekbar_g);
+
+        seekBar_r.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                networkingHelper.send_command("LED " + seekBar_r.getProgress() + " " + seekBar_g.getProgress() + " " + seekBar_b.getProgress());
+            }
+        });
+        seekBar_b.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                networkingHelper.send_command("LED " + seekBar_r.getProgress() + " " + seekBar_g.getProgress() + " " + seekBar_b.getProgress());
+            }
+        });
+
+        seekBar_g.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                networkingHelper.send_command("LED " + seekBar_r.getProgress() + " " + seekBar_g.getProgress() + " " + seekBar_b.getProgress());
+            }
+        });
     }
 }
