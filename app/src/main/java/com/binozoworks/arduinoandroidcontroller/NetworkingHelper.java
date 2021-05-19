@@ -41,6 +41,24 @@ public class NetworkingHelper {
                 try{
                     in = new DataInputStream(server.getInputStream());
                     out = new DataOutputStream(server.getOutputStream());
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try{
+                                System.out.println("Client Nachricht: ");
+                                while(true){
+                                    String message = in.readLine();
+                                    System.out.println(message);
+                                    events.OnServerMessage("Server: " + message);
+                                }
+                                //System.out.println(in.readChar());
+                                //System.out.println("Nachricht ende");
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+
+                        }
+                    }).start();
                 } catch (IOException e) {
                     e.printStackTrace();
                     events.OnConnectError("Fehler beim öffnen des Datenstreams: " + e.getMessage() + "\nCause: " + e.getCause());
@@ -55,7 +73,7 @@ public class NetworkingHelper {
                     //Ware auf bestätigungsnachricht
                     //String message = in.readChar();
                     System.out.println("Warte auf Client Nachricht...");
-                    System.out.println(in.readByte());
+                    System.out.println(in.readLine());
                     System.out.println("Client Nachricht gelesen!");
                     events.OnConnect();
                     /*events.OnServerMessage(message);
@@ -83,9 +101,9 @@ public class NetworkingHelper {
                 try{
                     byte[] byteArrray = command.getBytes();
                     out.write(byteArrray);
-                    System.out.println("Warte auf Client Nachricht...");
-                    System.out.println(in.readByte());
-                    System.out.println("Client Nachricht gelesen!");
+                    //System.out.println("Warte auf Client Nachricht...");
+                    //System.out.println(in.readByte());
+                    //System.out.println("Client Nachricht gelesen!");
                 }catch (IOException e){
                     e.printStackTrace();
                 }
